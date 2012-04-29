@@ -158,6 +158,8 @@
 		self._initialTouchPositionX = currentTouchPositionX;
 		self._initialHorizontalCenter = self.contentView.center.x;
 		
+		[self.delegate cellDidBeginPan:self];
+		
 	} else if (recognizer.state == UIGestureRecognizerStateChanged) {
 		
 		// If the pan amount is negative, then the last direction is left, and vice versa.
