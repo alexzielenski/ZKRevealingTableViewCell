@@ -103,6 +103,16 @@
 
 #pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+	return (section == 0) ? @"Bounce" : @"No Bounce";
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	return self.objects.count;
@@ -120,6 +130,8 @@
 	
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
 	cell.direction      = (ZKRevealingTableViewCellDirection)indexPath.row;
+	cell.shouldBounce   = (BOOL)!indexPath.section;
+	
 	return cell;
 	
 }
