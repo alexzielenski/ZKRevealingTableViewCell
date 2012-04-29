@@ -36,6 +36,7 @@
 @property (nonatomic, assign) CGFloat _initialTouchPositionX;
 @property (nonatomic, assign) CGFloat _initialHorizontalCenter;
 @property (nonatomic, assign) ZKRevealingTableViewCellDirection _lastDirection;
+@property (nonatomic, assign) ZKRevealingTableViewCellDirection _currentDirection;
 
 - (void)_slideInContentViewFromDirection:(ZKRevealingTableViewCellDirection)direction offsetMultiplier:(CGFloat)multiplier;
 - (void)_slideOutContentViewInDirection:(ZKRevealingTableViewCellDirection)direction;
@@ -61,6 +62,7 @@
 @synthesize _initialTouchPositionX;
 @synthesize _initialHorizontalCenter;
 @synthesize _lastDirection;
+@synthesize _currentDirection;
 
 #pragma mark - Public Properties
 
@@ -116,9 +118,9 @@
 	[self _setRevealing:revealing];
 	
 	if (self.isRevealing)
-		[self _slideOutContentViewInDirection:self._lastDirection];
+		[self _slideOutContentViewInDirection:self._currentDirection];
 	else
-		[self _slideInContentViewFromDirection:self._lastDirection offsetMultiplier:self._bounceMultiplier];
+		[self _slideInContentViewFromDirection:self._currentDirection offsetMultiplier:self._bounceMultiplier];
 }
 
 - (void)_setRevealing:(BOOL)revealing
@@ -205,16 +207,21 @@
 		else if (velocityX < 0 && self._lastDirection == ZKRevealingTableViewCellDirectionRight)
 			push = NO;
 		
-		if (push && !self.revealing) {
+		if (push && !self.isRevealing) {
 			
 			[self _slideOutContentViewInDirection:self._lastDirection];
-			
 			[self _setRevealing:YES];
+			
+			self._currentDirection = self._lastDirection;
+			
 		} else {
-			
-			[self _slideInContentViewFromDirection:self._lastDirection offsetMultiplier:self._bounceMultiplier];
-			
+			CGFloat multiplier = self._bounceMultiplier;
+			if (!self.isRevealing)
+				multiplier *= -1.0;
+				
+			[self _slideInContentViewFromDirection:self._currentDirection offsetMultiplier:multiplier];
 			[self _setRevealing:NO];
+			
 		}
 	}
 }
@@ -236,7 +243,7 @@
 
 - (CGFloat)_bounceMultiplier
 {
-	return MIN(ABS(self._originalCenter - self.contentView.center.x) / kMinimumPan, 1.0);
+	return self.shouldBounce ? MIN(ABS(self._originalCenter - self.contentView.center.x) / kMinimumPan, 1.0) : 0.0;
 }
 
 #pragma mark - Sliding
@@ -250,11 +257,14 @@ void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
 {
 	CGFloat bounceDistance;
 	
+	if (self.contentView.center.x == self._originalCenter)
+		return;
+	
 	switch (direction) {
-		case ZKRevealingTableViewCellDirectionLeft:
+		case ZKRevealingTableViewCellDirectionRight:
 			bounceDistance = kBOUNCE_DISTANCE * multiplier;
 			break;
-		case ZKRevealingTableViewCellDirectionRight:
+		case ZKRevealingTableViewCellDirectionLeft:
 			bounceDistance = -kBOUNCE_DISTANCE * multiplier;
 			break;
 		default:
@@ -262,27 +272,24 @@ void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
 			break;
 	}
 	
+	
 	[UIView animateWithDuration:0.1
 						  delay:0 
 						options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowUserInteraction 
 					 animations:^{ self.contentView.center = CGPointMake(self._originalCenter, self.contentView.center.y); } 
 					 completion:^(BOOL f) {
-						 
-						 if (self.shouldBounce) {
-						 
-							 [UIView animateWithDuration:0.1 delay:0 
-												 options:UIViewAnimationCurveLinear
-											  animations:^{ LR_offsetView(self.contentView, bounceDistance, 0); } 
-											  completion:^(BOOL f) {                     
-												  
+						 						 
+						 [UIView animateWithDuration:0.1 delay:0 
+											 options:UIViewAnimationCurveLinear
+										  animations:^{ LR_offsetView(self.contentView, bounceDistance, 0); } 
+										  completion:^(BOOL f) {                     
+											  
 												  [UIView animateWithDuration:0.1 delay:0 
 																	  options:UIViewAnimationCurveLinear
 																   animations:^{ LR_offsetView(self.contentView, -bounceDistance, 0); } 
 																   completion:NULL];
-											  }
-							  ]; 
-							 
-						 }
+										  }
+						  ]; 
 					 }];
 }
 
