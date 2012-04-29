@@ -39,7 +39,7 @@ Simply use this class for your [`UITableViewCell`](http://developer.apple.com/li
 }
 ```
 
-If you want only one item selected at a time, you could do something like this:
+If you want only one item selected at a time, you could do something like this in UITableViewController subclass:
 
 ```objc
 #pragma mark - Accessors
