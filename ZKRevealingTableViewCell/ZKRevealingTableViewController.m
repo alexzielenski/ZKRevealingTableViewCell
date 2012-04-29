@@ -96,7 +96,8 @@
 
 - (void)cellDidBeginPan:(ZKRevealingTableViewCell *)cell
 {
-	self.currentlyRevealedCell = nil;
+	if (cell != self.currentlyRevealedCell)
+		self.currentlyRevealedCell = nil;
 }
 
 
