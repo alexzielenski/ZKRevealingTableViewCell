@@ -328,13 +328,16 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
 {
-    CGPoint translation = [self._panGesture translationInView:self.superview];
-    return (fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO;
+	UIScrollView *superview = (UIScrollView *)self.superview;
+    CGPoint translation = [gestureRecognizer translationInView:superview];
+	
+	// Make sure it is scrolling horizontally
+    return ((fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO && (superview.contentOffset.y == 0.0 && superview.contentOffset.x == 0.0));
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+- (BOOL)gestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
 	return (self.contentView.center.x == self._originalCenter);
 }
