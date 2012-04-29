@@ -118,9 +118,9 @@
 	[self _setRevealing:revealing];
 	
 	if (self.isRevealing)
-		[self _slideOutContentViewInDirection:self._currentDirection];
+		[self _slideOutContentViewInDirection:(self.isRevealing) ? self._currentDirection : self._lastDirection];
 	else
-		[self _slideInContentViewFromDirection:self._currentDirection offsetMultiplier:self._bounceMultiplier];
+		[self _slideInContentViewFromDirection:(self.isRevealing) ? self._currentDirection : self._lastDirection offsetMultiplier:self._bounceMultiplier];
 }
 
 - (void)_setRevealing:(BOOL)revealing
@@ -214,7 +214,7 @@
 			
 			self._currentDirection = self._lastDirection;
 			
-		} else {
+		} else if (self.isRevealing && translation.x != 0) {
 			CGFloat multiplier = self._bounceMultiplier;
 			if (!self.isRevealing)
 				multiplier *= -1.0;
@@ -222,6 +222,14 @@
 			[self _slideInContentViewFromDirection:self._currentDirection offsetMultiplier:multiplier];
 			[self _setRevealing:NO];
 			
+		} else if (translation.x != 0) {
+			// Figure out which side we've dragged on.
+			ZKRevealingTableViewCellDirection finalDir = ZKRevealingTableViewCellDirectionRight;
+			if (translation.x < 0)
+				finalDir = ZKRevealingTableViewCellDirectionLeft;
+		
+			[self _slideInContentViewFromDirection:finalDir offsetMultiplier:-1.0 * self._bounceMultiplier];
+			[self _setRevealing:NO];
 		}
 	}
 }

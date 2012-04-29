@@ -249,6 +249,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -260,6 +261,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -284,6 +286,7 @@
 				FA89709A154D9DC000526E2C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
