@@ -17,6 +17,8 @@ Here's a preview:
 
 ![image](https://github.com/alexzielenski/ZKRevealingTableViewCell/blob/master/Preview.png?raw=true)
 
+---
+
 Usage
 ===
 
@@ -81,6 +83,8 @@ If you want only one item selected at a time, you could do something like this:
 	self.currentlyRevealedCell = nil;
 }
 ```
+
+---
 
 License
 ===
