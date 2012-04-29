@@ -335,7 +335,14 @@ void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
 	UIScrollView *superview = (UIScrollView *)self.superview;
 	UIPanGestureRecognizer *gest = superview.panGestureRecognizer;
 	
+	NSLog(@"%d", gest.state);
+	
 	return (gest.state != UIGestureRecognizerStateBegan && gest.state != UIGestureRecognizerStateChanged && [gest translationInView:superview].y <= 5.0);
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+	return (self.contentView.center.x == self._originalCenter);
 }
 
 @end
