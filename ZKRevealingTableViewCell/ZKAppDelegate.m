@@ -8,7 +8,7 @@
 
 #import "ZKAppDelegate.h"
 
-#import "ZKViewController.h"
+#import "ZKRevealingTableViewController.h"
 
 @implementation ZKAppDelegate
 
@@ -25,8 +25,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+	
     // Override point for customization after application launch.
-	self.viewController = [[[ZKViewController alloc] initWithNibName:@"ZKViewController" bundle:nil] autorelease];
+	self.viewController = [[[ZKRevealingTableViewController alloc] initWithNibName:@"ZKRevealingTableViewController" bundle:nil] autorelease];
 	self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

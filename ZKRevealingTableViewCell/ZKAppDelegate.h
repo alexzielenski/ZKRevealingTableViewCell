@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZKViewController;
+@class ZKRevealingTableViewController;
 
 @interface ZKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ZKViewController *viewController;
+@property (strong, nonatomic) ZKRevealingTableViewController *viewController;
 
 @end
