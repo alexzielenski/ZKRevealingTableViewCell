@@ -7,8 +7,6 @@ A Sparrow-style Implementation of Swipe-To-Reveal
 
 Sparrow for iOS has a different kind of swipe to reveal; its version of the control is that the content view pans with your finger or optionally could swipe.
 
-After looking for a similar open source feature and failing, I decided to take it upon my self.
-
 This Swipe-To-Reveal implementation ***will*** pan with your finger and can swipe. It works, **left**, **right**, or **left and right**.
 
 ---
