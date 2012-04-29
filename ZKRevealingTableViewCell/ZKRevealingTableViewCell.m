@@ -129,13 +129,14 @@
 	_revealing = revealing;
 	[self didChangeValueForKey:@"isRevealing"];
 	
-	if (self.isRevealing)
+	if (self.isRevealing && [self.delegate respondsToSelector:@selector(cellDidReveal:)])
 		[self.delegate cellDidReveal:self];
 }
 
 - (BOOL)_shouldReveal
 {
-	return ([self.delegate cellShouldReveal:self] || ![self.delegate respondsToSelector:@selector(cellShouldReveal:)]);
+	// Conditions are checked in order
+	return (![self.delegate respondsToSelector:@selector(cellShouldReveal:)] || [self.delegate cellShouldReveal:self]);
 }
 
 #pragma mark - Handing Touch
@@ -158,7 +159,8 @@
 		self._initialTouchPositionX = currentTouchPositionX;
 		self._initialHorizontalCenter = self.contentView.center.x;
 		
-		[self.delegate cellDidBeginPan:self];
+		if ([self.delegate respondsToSelector:@selector(cellDidBeginPan:)])
+			[self.delegate cellDidBeginPan:self];
 		
 	} else if (recognizer.state == UIGestureRecognizerStateChanged) {
 		

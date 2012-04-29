@@ -37,6 +37,7 @@ typedef enum {
 
 @protocol ZKRevealingTableViewCellDelegate <NSObject>
 
+@optional
 - (BOOL)cellShouldReveal:(ZKRevealingTableViewCell *)cell;
 - (void)cellDidBeginPan:(ZKRevealingTableViewCell *)cell;
 - (void)cellDidReveal:(ZKRevealingTableViewCell *)cell;
