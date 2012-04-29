@@ -81,11 +81,13 @@
 
 #pragma mark - ZKRevealingTableViewCellDelegate
 
-- (BOOL)cellShouldReveal:(ZKRevealingTableViewCell *)cell {
+- (BOOL)cellShouldReveal:(ZKRevealingTableViewCell *)cell
+{
 	return YES;
 }
 
-- (void)cellDidReveal:(ZKRevealingTableViewCell *)cell {
+- (void)cellDidReveal:(ZKRevealingTableViewCell *)cell
+{
 	NSLog(@"Revealed Cell with title: %@", cell.textLabel.text);
 	self.currentlyRevealedCell = cell;
 }
@@ -101,11 +103,13 @@
 
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
 	return self.objects.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	ZKRevealingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 	
 	if (!cell) {
