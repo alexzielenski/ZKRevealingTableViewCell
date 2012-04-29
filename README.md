@@ -9,7 +9,7 @@ Sparrow for iOS has a different kind of swipe to reveal; its version of the cont
 
 After looking for a similar open source feature and failing, I decided to take it upon my self.
 
-This Swipe-To-Reveal implementation ***will*** pan with your finger and can swipe. It could work , **left**, **right**, or **both**.
+This Swipe-To-Reveal implementation ***will*** pan with your finger and can swipe. It words, **left**, **right**, or **left and right**.
 
 ---
 
