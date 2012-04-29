@@ -142,7 +142,8 @@
 #pragma mark - Handing Touch
 
 - (void)_pan:(UIPanGestureRecognizer *)recognizer
-{		
+{
+	
 	CGPoint translation           = [recognizer translationInView:self];
 	CGPoint currentTouchPoint     = [recognizer locationInView:self];
 	CGPoint velocity              = [recognizer velocityInView:self];
@@ -152,11 +153,6 @@
 	CGFloat panAmount             = self._initialTouchPositionX - currentTouchPositionX;
 	CGFloat newCenterPosition     = self._initialHorizontalCenter - panAmount;
 	CGFloat centerX               = self.contentView.center.x;
-
-	UIScrollView *superview = (UIScrollView *)self.superview;
-	if (superview.contentOffset.y > 0.0) {
-		return;
-	}
 	
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
 		

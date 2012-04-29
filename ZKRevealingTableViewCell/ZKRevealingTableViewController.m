@@ -134,7 +134,6 @@
 		cell.delegate       = self;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		// Image from http://subtlepatterns.com
 		cell.backgroundView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
 	}
 	
