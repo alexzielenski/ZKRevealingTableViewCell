@@ -20,7 +20,7 @@ Here's a preview:
 Usage
 ===
 
-Simply link `QuartzCore.framework` and use the [`ZKRevealingTableViewCell`](https://github.com/alexzielenski/ZKRevealingTableViewCell/blob/master/ZKRevealingTableViewCell/ZKRevealingTableViewCell.h) class for your [`UITableViewCell`](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewCell_Class/Reference/Reference.html). To change the reveal view, simply modify the [`backgroundView`](http://developer.apple.com/library/ios/documentation/uikit/reference/UITableViewCell_Class/Reference/Reference.html#//apple_ref/occ/instp/UITableViewCell/backgroundView) property of the cell.
+Simply link `QuartzCore.framework` and use the [`ZKRevealingTableViewCell`](https://github.com/alexzielenski/ZKRevealingTableViewCell/blob/master/ZKRevealingTableViewCell/ZKRevealingTableViewCell.h) class for your [`UITableViewCell`](http://developer.apple.com/library/ios/#documentation/uikit/reference/UITableViewCell_Class/Reference/Reference.html). To change the reveal view, simply modify the `backView` property of the cell.
 
 ```objc
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,13 +82,13 @@ If you want only one item selected at a time, you could do something like this i
 }
 ```
 
-To programmatically reveal/hide the `backgroundView`, set the `revealing` property.
+To programmatically reveal/hide the `backView`, set the `revealing` property.
 
 ```objc
-// Reveal the backgroundView
+// Reveal the backView
 cell.revealing = YES;
 
-// Hide the backgroundView
+// Hide the backView
 cell.revealing = NO;
 ```
 
