@@ -42,7 +42,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	self.objects = [NSArray arrayWithObjects:@"One", @"Two", @"Three", @"Four", @"Five", @"Six", @"Seven", nil];
+	self.objects = [NSArray arrayWithObjects:@"Right", @"Left", @"Both", @"None", nil];
 	self.tableView = (UITableView *)self.view;
 }
 
@@ -119,7 +119,7 @@
 	}
 	
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
-
+	cell.direction      = (ZKRevealingTableViewCellDirection)indexPath.row;
 	return cell;
 	
 }
