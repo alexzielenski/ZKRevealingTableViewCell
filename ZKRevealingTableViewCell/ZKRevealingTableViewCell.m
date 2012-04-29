@@ -153,6 +153,11 @@
 	CGFloat newCenterPosition     = self._initialHorizontalCenter - panAmount;
 	CGFloat centerX               = self.contentView.center.x;
 
+	UIScrollView *superview = (UIScrollView *)self.superview;
+	if (superview.contentOffset.y > 0.0) {
+		return;
+	}
+	
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
 		
 		// Set a baseline for the panning
@@ -161,6 +166,7 @@
 		
 		if ([self.delegate respondsToSelector:@selector(cellDidBeginPan:)])
 			[self.delegate cellDidBeginPan:self];
+		
 		
 	} else if (recognizer.state == UIGestureRecognizerStateChanged) {
 		
@@ -260,10 +266,6 @@
 
 #pragma mark - Sliding
 #define kBOUNCE_DISTANCE 15.0
-void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
-{
-	view.frame = CGRectOffset(view.frame, offsetX, offsetY);
-}
 
 - (void)_slideInContentViewFromDirection:(ZKRevealingTableViewCellDirection)direction offsetMultiplier:(CGFloat)multiplier
 {
@@ -293,12 +295,12 @@ void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
 						 						 
 						 [UIView animateWithDuration:0.1 delay:0 
 											 options:UIViewAnimationCurveLinear
-										  animations:^{ LR_offsetView(self.contentView, bounceDistance, 0); } 
+										  animations:^{ self.contentView.frame = CGRectOffset(self.contentView.frame, bounceDistance, 0); } 
 										  completion:^(BOOL f) {                     
 											  
 												  [UIView animateWithDuration:0.1 delay:0 
 																	  options:UIViewAnimationCurveLinear
-																   animations:^{ LR_offsetView(self.contentView, -bounceDistance, 0); } 
+																   animations:^{ self.contentView.frame = CGRectOffset(self.contentView.frame, -bounceDistance, 0); } 
 																   completion:NULL];
 										  }
 						  ]; 
@@ -332,12 +334,8 @@ void LR_offsetView(UIView *view, CGFloat offsetX, CGFloat offsetY)
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-	UIScrollView *superview = (UIScrollView *)self.superview;
-	UIPanGestureRecognizer *gest = superview.panGestureRecognizer;
-	
-	NSLog(@"%d", gest.state);
-	
-	return (gest.state != UIGestureRecognizerStateBegan && gest.state != UIGestureRecognizerStateChanged && [gest translationInView:superview].y <= 5.0);
+    CGPoint translation = [self._panGesture translationInView:self.superview];
+    return (fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

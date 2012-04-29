@@ -17,7 +17,6 @@
 		FA897095154D9DC000526E2C /* ZKRevealingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA897093154D9DC000526E2C /* ZKRevealingTableViewController.xib */; };
 		FA89709D154D9DDF00526E2C /* ZKRevealingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA89709C154D9DDF00526E2C /* ZKRevealingTableViewCell.m */; };
 		FA89709F154DA8A200526E2C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA89709E154DA8A200526E2C /* QuartzCore.framework */; };
-		FAD09F6D154DEF0D00172EC7 /* dark_Tire.png in Resources */ = {isa = PBXBuildFile; fileRef = FAD09F6C154DEF0D00172EC7 /* dark_Tire.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		FA89709B154D9DDF00526E2C /* ZKRevealingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKRevealingTableViewCell.h; sourceTree = "<group>"; };
 		FA89709C154D9DDF00526E2C /* ZKRevealingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKRevealingTableViewCell.m; sourceTree = "<group>"; };
 		FA89709E154DA8A200526E2C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		FAD09F6C154DEF0D00172EC7 /* dark_Tire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dark_Tire.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +99,6 @@
 		FA897085154D9DC000526E2C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FAD09F6C154DEF0D00172EC7 /* dark_Tire.png */,
 				FA897086154D9DC000526E2C /* ZKRevealingTableViewCell-Info.plist */,
 				FA897087154D9DC000526E2C /* InfoPlist.strings */,
 				FA89708A154D9DC000526E2C /* main.m */,
@@ -164,7 +161,6 @@
 			files = (
 				FA897089154D9DC000526E2C /* InfoPlist.strings in Resources */,
 				FA897095154D9DC000526E2C /* ZKRevealingTableViewController.xib in Resources */,
-				FAD09F6D154DEF0D00172EC7 /* dark_Tire.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

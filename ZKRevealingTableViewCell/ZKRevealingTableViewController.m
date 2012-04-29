@@ -135,7 +135,7 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		// Image from http://subtlepatterns.com
-		cell.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dark_Tire"]];
+		cell.backgroundView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
 	}
 	
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
