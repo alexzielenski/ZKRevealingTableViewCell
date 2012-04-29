@@ -44,6 +44,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	self.objects = [NSArray arrayWithObjects:@"Right", @"Left", @"Both", @"None", nil];
 	self.tableView = (UITableView *)self.view;
+	self.tableView.rowHeight = 48.0f;
 }
 
 - (void)viewDidUnload
@@ -126,6 +127,10 @@
 		cell = [[[ZKRevealingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"] autorelease];
 		cell.delegate       = self;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		
+		
+		// Image from http://subtlepatterns.com
+		cell.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dark_Tire"]];
 	}
 	
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
