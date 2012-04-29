@@ -84,6 +84,16 @@ If you want only one item selected at a time, you could do something like this i
 }
 ```
 
+To programmatically reveal/hide the `backgroundView`, set the `revealing` property.
+
+```objc
+	// Reveal the backgroundView
+	cell.revealing = YES;
+
+	// Hide the backgroundView
+	cell.revealing = NO;
+```
+
 ---
 
 License
