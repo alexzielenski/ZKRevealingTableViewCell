@@ -27,10 +27,7 @@
 #import "ZKRevealingTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ZKRevealingTableViewCell () {
-	BOOL _revealing;
-	ZKRevealingTableViewCellDirection _direction;
-}
+@interface ZKRevealingTableViewCell ()
 
 @property (nonatomic, retain) UIPanGestureRecognizer   *_panGesture;
 @property (nonatomic, assign) CGFloat _initialTouchPositionX;
@@ -112,17 +109,20 @@
 }
 
 #pragma mark - Accessors
+#import <objc/runtime.h>
+
+static char BOOLRevealing;
 
 - (BOOL)isRevealing
 {
-	return _revealing;
+	return [(NSNumber *)objc_getAssociatedObject(self, &BOOLRevealing) boolValue];
 }
 
 - (void)setRevealing:(BOOL)revealing
 {
 	// Don't change the value if its already that value.
 	// Reveal unless the delegate says no
-	if (revealing == _revealing || 
+	if (revealing == self.revealing || 
 		(revealing && self._shouldReveal))
 		return;
 	
@@ -137,7 +137,7 @@
 - (void)_setRevealing:(BOOL)revealing
 {
 	[self willChangeValueForKey:@"isRevealing"];
-	_revealing = revealing;
+	objc_setAssociatedObject(self, &BOOLRevealing, [NSNumber numberWithBool:revealing], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	[self didChangeValueForKey:@"isRevealing"];
 	
 	if (self.isRevealing && [self.delegate respondsToSelector:@selector(cellDidReveal:)])
