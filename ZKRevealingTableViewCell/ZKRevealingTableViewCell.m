@@ -272,7 +272,7 @@ static char BOOLRevealing;
 }
 
 #pragma mark - Sliding
-#define kBOUNCE_DISTANCE 15.0
+#define kBOUNCE_DISTANCE 20.0
 
 - (void)_slideInContentViewFromDirection:(ZKRevealingTableViewCellDirection)direction offsetMultiplier:(CGFloat)multiplier
 {
