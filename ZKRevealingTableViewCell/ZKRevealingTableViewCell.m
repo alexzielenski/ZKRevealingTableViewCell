@@ -203,11 +203,11 @@
 				
 		// Swiping left, velocity is below 0.
 		// Swiping right, it is above 0
-		// If the velocity is above 250 at any point in the pan, push it to the acceptable side
+		// If the velocity is above the width in points per second at any point in the pan, push it to the acceptable side
 		// Otherwise, if we are 60 points in, push to the other side
 		// If we are < 60 points in, bounce back
 		
-#define kMinimumVelocity 250.0
+#define kMinimumVelocity self.contentView.frame.size.width
 #define kMinimumPan      60.0
 		
 		CGFloat velocityX = velocity.x;
