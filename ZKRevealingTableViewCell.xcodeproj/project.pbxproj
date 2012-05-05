@@ -15,8 +15,8 @@
 		FA89708F154D9DC000526E2C /* ZKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA89708E154D9DC000526E2C /* ZKAppDelegate.m */; };
 		FA897092154D9DC000526E2C /* ZKRevealingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA897091154D9DC000526E2C /* ZKRevealingTableViewController.m */; };
 		FA897095154D9DC000526E2C /* ZKRevealingTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA897093154D9DC000526E2C /* ZKRevealingTableViewController.xib */; };
-		FA89709D154D9DDF00526E2C /* ZKRevealingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA89709C154D9DDF00526E2C /* ZKRevealingTableViewCell.m */; };
 		FA89709F154DA8A200526E2C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA89709E154DA8A200526E2C /* QuartzCore.framework */; };
+		FACE038D1555E52A00E9FBE2 /* ZKRevealingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FACE038C1555E52A00E9FBE2 /* ZKRevealingTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,9 +33,9 @@
 		FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZKRevealingTableViewController.h; sourceTree = "<group>"; };
 		FA897091154D9DC000526E2C /* ZKRevealingTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZKRevealingTableViewController.m; sourceTree = "<group>"; };
 		FA897094154D9DC000526E2C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ZKRevealingTableViewController.xib; sourceTree = "<group>"; };
-		FA89709B154D9DDF00526E2C /* ZKRevealingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKRevealingTableViewCell.h; sourceTree = "<group>"; };
-		FA89709C154D9DDF00526E2C /* ZKRevealingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKRevealingTableViewCell.m; sourceTree = "<group>"; };
 		FA89709E154DA8A200526E2C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FACE038B1555E52A00E9FBE2 /* ZKRevealingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKRevealingTableViewCell.h; path = vendor/ZKRevealingTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		FACE038C1555E52A00E9FBE2 /* ZKRevealingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKRevealingTableViewCell.m; path = vendor/ZKRevealingTableViewCell.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,12 +84,11 @@
 		FA897084154D9DC000526E2C /* ZKRevealingTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				FACE03721555E45400E9FBE2 /* vendor */,
 				FA89708D154D9DC000526E2C /* ZKAppDelegate.h */,
 				FA89708E154D9DC000526E2C /* ZKAppDelegate.m */,
 				FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */,
 				FA897091154D9DC000526E2C /* ZKRevealingTableViewController.m */,
-				FA89709B154D9DDF00526E2C /* ZKRevealingTableViewCell.h */,
-				FA89709C154D9DDF00526E2C /* ZKRevealingTableViewCell.m */,
 				FA897093154D9DC000526E2C /* ZKRevealingTableViewController.xib */,
 				FA897085154D9DC000526E2C /* Supporting Files */,
 			);
@@ -105,6 +104,16 @@
 				FA89708C154D9DC000526E2C /* ZKRevealingTableViewCell-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FACE03721555E45400E9FBE2 /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				FACE038B1555E52A00E9FBE2 /* ZKRevealingTableViewCell.h */,
+				FACE038C1555E52A00E9FBE2 /* ZKRevealingTableViewCell.m */,
+			);
+			name = vendor;
+			path = ../../vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,7 +183,7 @@
 				FA89708B154D9DC000526E2C /* main.m in Sources */,
 				FA89708F154D9DC000526E2C /* ZKAppDelegate.m in Sources */,
 				FA897092154D9DC000526E2C /* ZKRevealingTableViewController.m in Sources */,
-				FA89709D154D9DDF00526E2C /* ZKRevealingTableViewCell.m in Sources */,
+				FACE038D1555E52A00E9FBE2 /* ZKRevealingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
