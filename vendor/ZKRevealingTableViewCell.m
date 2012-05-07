@@ -341,7 +341,7 @@ static char BOOLRevealing;
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-	if ([gestureRecognizer respondsToSelector:@selector(translationInView:)]) {
+	if (gestureRecognizer == self._panGesture) {
 		UIScrollView *superview = (UIScrollView *)self.superview;
 		CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:superview];
 		
