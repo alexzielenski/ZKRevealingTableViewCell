@@ -339,13 +339,16 @@ static char BOOLRevealing;
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-	UIScrollView *superview = (UIScrollView *)self.superview;
-    CGPoint translation = [gestureRecognizer translationInView:superview];
-	
-	// Make sure it is scrolling horizontally
-    return ((fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO && (superview.contentOffset.y == 0.0 && superview.contentOffset.x == 0.0));
+	if ([gestureRecognizer respondsToSelector:@selector(translationInView:)]) {
+		UIScrollView *superview = (UIScrollView *)self.superview;
+		CGPoint translation = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:superview];
+		
+		// Make sure it is scrolling horizontally
+		return ((fabs(translation.x) / fabs(translation.y) > 1) ? YES : NO && (superview.contentOffset.y == 0.0 && superview.contentOffset.x == 0.0));
+	}
+	return NO;
 }
 
 @end
