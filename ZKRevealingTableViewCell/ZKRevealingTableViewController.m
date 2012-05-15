@@ -145,4 +145,16 @@
 	
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSUInteger row = [indexPath row];
+	if (row % 2 == 0) {
+		cell.backgroundColor = [UIColor whiteColor];
+	} else {
+		cell.backgroundColor = [UIColor colorWithRed:0.892 green:0.893 blue:0.892 alpha:1.0];
+	}
+	
+//	cell.contentView.backgroundColor = cell.backgroundColor;
+}
+
 @end

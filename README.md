@@ -92,6 +92,11 @@ cell.revealing = YES;
 cell.revealing = NO;
 ```
 
+### Changing the backgroundColor
+
+You may have trouble changing the background color of your `ZKRevealingTableViewCell` instance. The issue that happens is that the contentView's white background color is appearing on the edges of the cell. To fix this just change the contentView's background with the cell's background at the same time.
+
+
 ---
 
 License
