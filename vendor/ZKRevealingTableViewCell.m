@@ -49,6 +49,8 @@
 - (BOOL)_shouldDragRight;
 - (BOOL)_shouldReveal;
 
+-(void)initialize;
+
 @end
 
 @implementation ZKRevealingTableViewCell
@@ -70,57 +72,74 @@
 @synthesize pixelsToReveal = _pixelsToReveal;
 @synthesize backView     = _backView;
 
+#pragma mark - internal
+
+-(void)initialize 
+{
+    self.direction = ZKRevealingTableViewCellDirectionBoth;
+    self.shouldBounce = YES;
+    self.pixelsToReveal = 0;
+
+#if __has_feature(objc_arc)
+    self._panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] ;
+#else
+    self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
+#endif    
+    self._panGesture.delegate = self;
+    
+    [self addGestureRecognizer:self._panGesture];
+    
+    self.contentView.backgroundColor = [UIColor clearColor];
+    
+}
+
 #pragma mark - Lifecycle
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+        
+        if( !self.backView ) {
+#if __has_feature(objc_arc)
+            UIView *backgroundView         = [[UIView alloc] initWithFrame:self.contentView.frame];
+#else
+            UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
+#endif
+            backgroundView.backgroundColor = [UIColor clearColor];
+            self.backView                  = backgroundView;
+        }
+    }
+    return self;
+    
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.direction = ZKRevealingTableViewCellDirectionBoth;
-		self.shouldBounce = YES;
-		self.pixelsToReveal = 0;
-		
-		self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
-		self._panGesture.delegate = self;
-		
-		[self addGestureRecognizer:self._panGesture];
-		
-		self.contentView.backgroundColor = [UIColor clearColor];
-		
+        [self initialize];
+        
+#if __has_feature(objc_arc)
+		UIView *backgroundView         = [[UIView alloc] initWithFrame:self.contentView.frame];
+#else
 		UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
+#endif
 		backgroundView.backgroundColor = [UIColor clearColor];
 		self.backView                  = backgroundView;
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        self.direction = ZKRevealingTableViewCellDirectionBoth;
-		self.shouldBounce = YES;
-		self.pixelsToReveal = 0;
-		
-		self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
-		self._panGesture.delegate = self;
-		
-		[self addGestureRecognizer:self._panGesture];
-		
-		self.contentView.backgroundColor = [UIColor clearColor];
-		
-		UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
-		backgroundView.backgroundColor = [UIColor clearColor];
-		self.backView                  = backgroundView;
-    }
-    return self;
-}
 
 - (void)dealloc
 {
+#if !__has_feature(objc_arc)    
 	self._panGesture = nil;
 	self.backView    = nil;
 	[super dealloc];
+#endif    
 }
 
 - (void)layoutSubviews

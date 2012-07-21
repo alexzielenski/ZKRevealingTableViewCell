@@ -28,4 +28,13 @@
 
 @interface ZKRevealingTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, ZKRevealingTableViewCellDelegate>
 @property (nonatomic, retain) ZKRevealingTableViewCell *currentlyRevealedCell;
+
+#if __has_feature(objc_arc_weak)
+@property (weak, nonatomic) IBOutlet ZKRevealingTableViewCell *customCell;
+#elif __has_feature(objc_arc)
+@property (unsafe_unretained, nonatomic) IBOutlet ZKRevealingTableViewCell *customCell;
+#else
+@property (assign, nonatomic) IBOutlet ZKRevealingTableViewCell *customCell;
+#endif
+
 @end

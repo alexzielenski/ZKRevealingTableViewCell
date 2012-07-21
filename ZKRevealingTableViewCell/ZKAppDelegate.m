@@ -35,17 +35,29 @@
 
 - (void)dealloc
 {
+#if !__has_feature(objc_arc)
 	[_window release];
 	[_viewController release];
     [super dealloc];
+#endif
+    
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#if __has_feature(objc_arc)
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	
+    // Override point for customization after application launch.
+	self.viewController = [[ZKRevealingTableViewController alloc] initWithNibName:@"ZKRevealingTableViewController" bundle:nil];
+#else
+
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 	
     // Override point for customization after application launch.
 	self.viewController = [[[ZKRevealingTableViewController alloc] initWithNibName:@"ZKRevealingTableViewController" bundle:nil] autorelease];
+#endif    
 	self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
