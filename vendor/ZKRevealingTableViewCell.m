@@ -86,6 +86,7 @@
 
 -(void)setContentCenter:(CGPoint)value
 {
+          
     CGFloat delta = self.bounds.size.width - self.contentView.bounds.size.width;
     
     if(delta) value.x -= (delta/2);
@@ -236,7 +237,8 @@ static char BOOLRevealing;
 
 - (void)_pan:(UIPanGestureRecognizer *)recognizer
 {
-	
+    if( self.direction == ZKRevealingTableViewCellDirectionNone ) return;
+    
 	CGPoint translation           = [recognizer translationInView:self];
 	CGPoint currentTouchPoint     = [recognizer locationInView:self];
 	CGPoint velocity              = [recognizer velocityInView:self];
@@ -430,7 +432,7 @@ static char BOOLRevealing;
 				x = - self._originalCenter;
 				break;
 			case ZKRevealingTableViewCellDirectionRight:
-				x = self.contentView.frame.size.width + self._originalCenter;
+				x = self.boundsWidth + self._originalCenter;
 				break;
 			default:
 				@throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Unhandled gesture direction" userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:direction] forKey:@"direction"]];
