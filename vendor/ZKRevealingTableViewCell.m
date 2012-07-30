@@ -34,6 +34,9 @@
 @property (nonatomic, assign) CGFloat _initialHorizontalCenter;
 @property (nonatomic, assign) ZKRevealingTableViewCellDirection _lastDirection;
 @property (nonatomic, assign) ZKRevealingTableViewCellDirection _currentDirection;
+@property (getter = getBoundsWidth, nonatomic, readonly, assign) CGFloat boundsWidth;
+@property (getter = getContentCenter, nonatomic, assign) CGPoint contentCenter;
+
 
 - (void)_slideInContentViewFromDirection:(ZKRevealingTableViewCellDirection)direction offsetMultiplier:(CGFloat)multiplier;
 - (void)_slideOutContentViewInDirection:(ZKRevealingTableViewCellDirection)direction;
@@ -62,6 +65,8 @@
 @synthesize _initialHorizontalCenter;
 @synthesize _lastDirection;
 @synthesize _currentDirection;
+@synthesize boundsWidth;
+@synthesize contentCenter;
 
 #pragma mark - Public Properties
 
@@ -73,6 +78,33 @@
 @synthesize backView     = _backView;
 
 #pragma mark - internal
+
+-(CGFloat)getBoundsWidth
+{
+    return self.bounds.size.width;
+}
+
+-(void)setContentCenter:(CGPoint)value
+{
+    CGFloat delta = self.bounds.size.width - self.contentView.bounds.size.width;
+    
+    if(delta) value.x -= (delta/2);
+    
+    self.contentView.center = value;
+    
+}
+
+-(CGPoint)getContentCenter
+{
+    CGPoint value =  self.contentView.center;
+
+    CGFloat delta = self.bounds.size.width - self.contentView.bounds.size.width;
+    
+    if(delta) value.x -= (delta/2);
+    
+    return value;
+    
+}
 
 -(void)initialize 
 {
@@ -149,6 +181,13 @@
 	[self addSubview:self.backView];
 	[self addSubview:self.contentView];
 	self.backView.frame = self.contentView.frame;
+
+    NSLog(@"layoutSubviews\nself.bounds.width[%f]\ncontentView.bounds.width [%f]\nadjusted bounds width [%f]", 
+          self.bounds.size.width, 
+          self.contentView.bounds.size.width,
+          self.boundsWidth
+          );
+    
 }
 
 #pragma mark - Accessors
@@ -206,13 +245,13 @@ static char BOOLRevealing;
 	CGFloat currentTouchPositionX = currentTouchPoint.x;
 	CGFloat panAmount             = self._initialTouchPositionX - currentTouchPositionX;
 	CGFloat newCenterPosition     = self._initialHorizontalCenter - panAmount;
-	CGFloat centerX               = self.contentView.center.x;
+	CGFloat centerX               = self.contentCenter.x;
 	
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
 		
 		// Set a baseline for the panning
 		self._initialTouchPositionX = currentTouchPositionX;
-		self._initialHorizontalCenter = self.contentView.center.x;
+		self._initialHorizontalCenter = self.contentCenter.x;
 		
 		if ([self.delegate respondsToSelector:@selector(cellDidBeginPan:)])
 			[self.delegate cellDidBeginPan:self];
@@ -239,14 +278,14 @@ static char BOOLRevealing;
 				newCenterPosition = originalCenter - self.pixelsToReveal;
 		}else {
 			// Let's not go waaay out of bounds
-			if (newCenterPosition > self.bounds.size.width + originalCenter)
-				newCenterPosition = self.bounds.size.width + originalCenter;
+			if (newCenterPosition > self.boundsWidth + originalCenter)
+				newCenterPosition = self.boundsWidth + originalCenter;
 			
 			else if (newCenterPosition < -originalCenter)
 				newCenterPosition = -originalCenter;
 		}
 		
-		CGPoint center = self.contentView.center;
+		CGPoint center = self.contentCenter;
 		center.x = newCenterPosition;
 		
 		self.contentView.layer.position = center;
@@ -315,12 +354,12 @@ static char BOOLRevealing;
 
 - (CGFloat)_originalCenter
 {
-	return ceil(self.bounds.size.width / 2);
+	return ceil(self.boundsWidth / 2);
 }
 
 - (CGFloat)_bounceMultiplier
 {
-	return self.shouldBounce ? MIN(ABS(self._originalCenter - self.contentView.center.x) / kMinimumPan, 1.0) : 0.0;
+	return self.shouldBounce ? MIN(ABS(self._originalCenter - self.contentCenter.x) / kMinimumPan, 1.0) : 0.0;
 }
 
 #pragma mark - Sliding
@@ -330,7 +369,7 @@ static char BOOLRevealing;
 {
 	CGFloat bounceDistance;
 	
-	if (self.contentView.center.x == self._originalCenter)
+	if (self.contentCenter.x == self._originalCenter)
 		return;
 	
 	switch (direction) {
@@ -349,7 +388,9 @@ static char BOOLRevealing;
 	[UIView animateWithDuration:0.1
 						  delay:0 
 						options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowUserInteraction 
-					 animations:^{ self.contentView.center = CGPointMake(self._originalCenter, self.contentView.center.y); } 
+					 animations:^{ 
+                         self.contentCenter = CGPointMake(self._originalCenter, self.contentCenter.y); 
+                     } 
 					 completion:^(BOOL f) {
 						 						 
 						 [UIView animateWithDuration:0.1 delay:0 
@@ -400,7 +441,7 @@ static char BOOLRevealing;
 	[UIView animateWithDuration:0.2 
 						  delay:0 
 						options:UIViewAnimationOptionCurveEaseOut 
-					 animations:^{ self.contentView.center = CGPointMake(x, self.contentView.center.y); } 
+					 animations:^{ self.contentCenter = CGPointMake(x, self.contentCenter.y); } 
 					 completion:NULL];
 }
 

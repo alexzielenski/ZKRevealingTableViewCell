@@ -30,7 +30,9 @@
 
 @interface ZKRevealingTableViewController () {
 	ZKRevealingTableViewCell *_currentlyRevealedCell;
+    NSArray *sectionIndexTitles_;
 }
+
 @property (nonatomic, retain) NSArray *objects;
 @end
 
@@ -160,6 +162,10 @@
 #endif 
 	}
 	
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    
+    cell.imageView.image = [UIImage imageNamed:@"settings20x20.png"];   
+    
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
 	cell.direction      = (ZKRevealingTableViewCellDirection)indexPath.row;
 	cell.shouldBounce   = (BOOL)!indexPath.section;
@@ -177,13 +183,52 @@
 		cell.backgroundColor = [UIColor colorWithRed:0.892 green:0.893 blue:0.892 alpha:1.0];
 	}
 	
-//	cell.contentView.backgroundColor = cell.backgroundColor;
+    cell.contentView.backgroundColor = cell.backgroundColor;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"didSelectRowAtIndexPath [%@]", indexPath);
 }
+
+#pragma mark - UITableView Index
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
+	if (sectionIndexTitles_==nil) {
+		
+		sectionIndexTitles_ = [NSMutableArray arrayWithObjects: 
+							   @"A", 
+							   @"B", 
+							   @"C", 
+							   @"D", 
+							   @"E", 
+							   @"F",
+							   @"G",
+							   @"H",
+							   @"I",
+							   @"J",
+							   @"K",
+							   @"L",
+							   @"M",
+							   @"N",
+							   @"O",
+							   @"P",
+							   @"Q",
+							   @"R",
+							   @"S",
+							   @"T",
+							   @"U",
+							   @"W",
+							   @"V",
+							   @"X",
+							   @"Y",
+							   @"Z",
+							   nil ];
+	}
+	return sectionIndexTitles_;
+}
+
 
 - (void)dealloc {
 #if !__has_feature(objc_arc)    
