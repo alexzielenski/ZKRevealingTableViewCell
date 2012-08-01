@@ -91,9 +91,9 @@
 				FACE03721555E45400E9FBE2 /* vendor */,
 				FA89708D154D9DC000526E2C /* ZKAppDelegate.h */,
 				FA89708E154D9DC000526E2C /* ZKAppDelegate.m */,
-				FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */,
 				FA897091154D9DC000526E2C /* ZKRevealingTableViewController.m */,
 				FA897093154D9DC000526E2C /* ZKRevealingTableViewController.xib */,
+				FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */,
 				FA897085154D9DC000526E2C /* Supporting Files */,
 				5F084FC815BAF8C700059E26 /* ZKCustomCell.xib */,
 			);

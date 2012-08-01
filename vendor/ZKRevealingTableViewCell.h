@@ -52,5 +52,5 @@ typedef enum {
 @property (nonatomic, assign) ZKRevealingTableViewCellDirection direction;
 @property (nonatomic, assign) BOOL shouldBounce;
 @property CGFloat pixelsToReveal;
-
+@property (readonly, getter = getMinimumVelocity) CGFloat minimumVelocity; // override to 
 @end

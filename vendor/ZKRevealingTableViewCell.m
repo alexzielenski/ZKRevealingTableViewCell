@@ -67,6 +67,7 @@
 @synthesize _currentDirection;
 @synthesize boundsWidth;
 @synthesize contentCenter;
+@synthesize minimumVelocity;
 
 #pragma mark - Public Properties
 
@@ -78,6 +79,11 @@
 @synthesize backView     = _backView;
 
 #pragma mark - internal
+
+-(CGFloat)getMinimumVelocity
+{
+    return self.bounds.size.width;
+}
 
 -(CGFloat)getBoundsWidth
 {
@@ -300,13 +306,12 @@ static char BOOLRevealing;
 		// Otherwise, if we are 60 points in, push to the other side
 		// If we are < 60 points in, bounce back
 		
-#define kMinimumVelocity self.contentView.frame.size.width
 #define kMinimumPan      60.0
 		
 		CGFloat velocityX = velocity.x;
 		
-		BOOL push = (velocityX < -kMinimumVelocity);
-		push |= (velocityX > kMinimumVelocity);
+		BOOL push = (velocityX < -self.minimumVelocity);
+		push |= (velocityX > self.minimumVelocity);
 		push |= ((self._lastDirection == ZKRevealingTableViewCellDirectionLeft && translation.x < -kMinimumPan) || (self._lastDirection == ZKRevealingTableViewCellDirectionRight && translation.x > kMinimumPan));
 		push &= self._shouldReveal;
 		push &= ((self._lastDirection == ZKRevealingTableViewCellDirectionRight && self._shouldDragRight) || (self._lastDirection == ZKRevealingTableViewCellDirectionLeft && self._shouldDragLeft)); 
