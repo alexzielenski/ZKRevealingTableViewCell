@@ -122,16 +122,18 @@ static char BOOLRevealing;
 {
 	// Don't change the value if its already that value.
 	// Reveal unless the delegate says no
-	if (revealing == self.revealing || 
-		(revealing && self._shouldReveal))
+	if (revealing == self.revealing ||
+		(revealing && !self._shouldReveal)) {
 		return;
+    }
 	
 	[self _setRevealing:revealing];
 	
-	if (self.isRevealing)
+	if (self.isRevealing) {
 		[self _slideOutContentViewInDirection:(self.isRevealing) ? self._currentDirection : self._lastDirection];
-	else
+	} else {
 		[self _slideInContentViewFromDirection:(self.isRevealing) ? self._currentDirection : self._lastDirection offsetMultiplier:self._bounceMultiplier];
+    }
 }
 
 - (void)_setRevealing:(BOOL)revealing
@@ -317,7 +319,7 @@ static char BOOLRevealing;
 - (void)_slideOutContentViewInDirection:(ZKRevealingTableViewCellDirection)direction;
 {
 	CGFloat x;
-	
+
 	switch (direction) {
 		case ZKRevealingTableViewCellDirectionLeft:
 			x = - self._originalCenter;
