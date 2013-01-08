@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F084FC915BAF8C700059E26 /* ZKCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F084FC815BAF8C700059E26 /* ZKCustomCell.xib */; };
+		5FC7179415C6A2EB00836CED /* settings20x20.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7179315C6A2EB00836CED /* settings20x20.png */; };
 		FA89707F154D9DC000526E2C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA89707E154D9DC000526E2C /* UIKit.framework */; };
 		FA897081154D9DC000526E2C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA897080154D9DC000526E2C /* Foundation.framework */; };
 		FA897083154D9DC000526E2C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA897082154D9DC000526E2C /* CoreGraphics.framework */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F084FC815BAF8C700059E26 /* ZKCustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZKCustomCell.xib; sourceTree = SOURCE_ROOT; };
+		5FC7179315C6A2EB00836CED /* settings20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings20x20.png; sourceTree = "<group>"; };
 		FA89707A154D9DC000526E2C /* ZKRevealingTableViewCell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZKRevealingTableViewCell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA89707E154D9DC000526E2C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FA897080154D9DC000526E2C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -87,10 +91,11 @@
 				FACE03721555E45400E9FBE2 /* vendor */,
 				FA89708D154D9DC000526E2C /* ZKAppDelegate.h */,
 				FA89708E154D9DC000526E2C /* ZKAppDelegate.m */,
-				FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */,
 				FA897091154D9DC000526E2C /* ZKRevealingTableViewController.m */,
 				FA897093154D9DC000526E2C /* ZKRevealingTableViewController.xib */,
+				FA897090154D9DC000526E2C /* ZKRevealingTableViewController.h */,
 				FA897085154D9DC000526E2C /* Supporting Files */,
+				5F084FC815BAF8C700059E26 /* ZKCustomCell.xib */,
 			);
 			path = ZKRevealingTableViewCell;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 		FA897085154D9DC000526E2C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5FC7179315C6A2EB00836CED /* settings20x20.png */,
 				FA897086154D9DC000526E2C /* ZKRevealingTableViewCell-Info.plist */,
 				FA897087154D9DC000526E2C /* InfoPlist.strings */,
 				FA89708A154D9DC000526E2C /* main.m */,
@@ -170,6 +176,8 @@
 			files = (
 				FA897089154D9DC000526E2C /* InfoPlist.strings in Resources */,
 				FA897095154D9DC000526E2C /* ZKRevealingTableViewController.xib in Resources */,
+				5F084FC915BAF8C700059E26 /* ZKCustomCell.xib in Resources */,
+				5FC7179415C6A2EB00836CED /* settings20x20.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +222,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -238,6 +248,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -255,6 +267,8 @@
 		FA897099154D9DC000526E2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Info.plist";
@@ -267,6 +281,8 @@
 		FA89709A154D9DC000526E2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "ZKRevealingTableViewCell/ZKRevealingTableViewCell-Info.plist";

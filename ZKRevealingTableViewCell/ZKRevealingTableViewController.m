@@ -27,9 +27,12 @@
 #import "ZKRevealingTableViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+
 @interface ZKRevealingTableViewController () {
 	ZKRevealingTableViewCell *_currentlyRevealedCell;
+    NSArray *sectionIndexTitles_;
 }
+
 @property (nonatomic, retain) NSArray *objects;
 @end
 
@@ -37,6 +40,7 @@
 
 @synthesize objects;
 @dynamic currentlyRevealedCell;
+@synthesize customCell;
 
 - (void)viewDidLoad
 {
@@ -50,6 +54,7 @@
 
 - (void)viewDidUnload
 {
+    [self setCustomCell:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -72,13 +77,21 @@
 		return;
 	
 	[_currentlyRevealedCell setRevealing:NO];
-	
+
+#if __has_feature(objc_arc)
+
+	[self willChangeValueForKey:@"currentlyRevealedCell"];
+	[self didChangeValueForKey:@"currentlyRevealedCell"];
+
+#else
 	if (_currentlyRevealedCell)
 		[_currentlyRevealedCell autorelease];
 	
 	[self willChangeValueForKey:@"currentlyRevealedCell"];
 	_currentlyRevealedCell = [currentlyRevealedCell retain];
 	[self didChangeValueForKey:@"currentlyRevealedCell"];
+#endif
+    
 }
 
 #pragma mark - ZKRevealingTableViewCellDelegate
@@ -125,18 +138,34 @@
 	return self.objects.count;
 }
 
+#define _USE_NIB__
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	ZKRevealingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
 	
 	if (!cell) {
+#ifdef _USE_NIB__        
+        [[NSBundle mainBundle] loadNibNamed:@"ZKCustomCell" owner:self options:nil];
+        cell = customCell;
+        self.customCell = nil;
+
+        cell.delegate       = self;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+#else        
+
 		cell = [[[ZKRevealingTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"] autorelease];
-		cell.delegate       = self;
+        cell.delegate       = self;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
 		cell.backView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+#endif 
 	}
 	
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    
+    cell.imageView.image = [UIImage imageNamed:@"settings20x20.png"];   
+    
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
 	cell.direction      = (ZKRevealingTableViewCellDirection)indexPath.row;
 	cell.shouldBounce   = (BOOL)!indexPath.section;
@@ -154,7 +183,57 @@
 		cell.backgroundColor = [UIColor colorWithRed:0.892 green:0.893 blue:0.892 alpha:1.0];
 	}
 	
-//	cell.contentView.backgroundColor = cell.backgroundColor;
+    cell.contentView.backgroundColor = cell.backgroundColor;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"didSelectRowAtIndexPath [%@]", indexPath);
+}
+
+#pragma mark - UITableView Index
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    
+	if (sectionIndexTitles_==nil) {
+		
+		sectionIndexTitles_ = [NSMutableArray arrayWithObjects: 
+							   @"A", 
+							   @"B", 
+							   @"C", 
+							   @"D", 
+							   @"E", 
+							   @"F",
+							   @"G",
+							   @"H",
+							   @"I",
+							   @"J",
+							   @"K",
+							   @"L",
+							   @"M",
+							   @"N",
+							   @"O",
+							   @"P",
+							   @"Q",
+							   @"R",
+							   @"S",
+							   @"T",
+							   @"U",
+							   @"W",
+							   @"V",
+							   @"X",
+							   @"Y",
+							   @"Z",
+							   nil ];
+	}
+	return sectionIndexTitles_;
+}
+
+
+- (void)dealloc {
+#if !__has_feature(objc_arc)    
+    [customCell release];
+    [super dealloc];
+#endif
+}
 @end
