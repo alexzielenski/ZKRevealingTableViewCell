@@ -116,6 +116,24 @@
     return self;
 }
 
+
+-(void)awakeFromNib {
+    self.direction = ZKRevealingTableViewCellDirectionBoth;
+    self.shouldBounce = YES;
+    self.pixelsToReveal = 0;
+    
+    self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
+    self._panGesture.delegate = self;
+    
+    [self addGestureRecognizer:self._panGesture];
+    
+    self.contentView.backgroundColor = [UIColor clearColor];
+    
+    UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
+    backgroundView.backgroundColor = [UIColor clearColor];
+    self.backView                  = backgroundView;
+}
+
 - (void)dealloc
 {
 	self._panGesture = nil;
