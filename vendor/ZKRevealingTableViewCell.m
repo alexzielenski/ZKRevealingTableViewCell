@@ -68,7 +68,6 @@
 @synthesize delegate     = _delegate;
 @synthesize shouldBounce = _shouldBounce;
 @synthesize pixelsToReveal = _pixelsToReveal;
-@synthesize backView     = _backView;
 
 #pragma mark - Lifecycle
 
@@ -84,12 +83,6 @@
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
-		
-		self.contentView.backgroundColor = [UIColor clearColor];
-		
-		UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
-		backgroundView.backgroundColor = [UIColor clearColor];
-		self.backView                  = backgroundView;
     }
     return self;
 }
@@ -106,12 +99,6 @@
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
-		
-		self.contentView.backgroundColor = [UIColor clearColor];
-		
-		UIView *backgroundView         = [[[UIView alloc] initWithFrame:self.contentView.frame] autorelease];
-		backgroundView.backgroundColor = [UIColor clearColor];
-		self.backView                  = backgroundView;
     }
     return self;
 }
@@ -119,17 +106,7 @@
 - (void)dealloc
 {
 	self._panGesture = nil;
-	self.backView    = nil;
 	[super dealloc];
-}
-
-- (void)layoutSubviews
-{
-	[super layoutSubviews];
-	
-	[self addSubview:self.backView];
-	[self addSubview:self.contentView];
-	self.backView.frame = self.contentView.frame;
 }
 
 #pragma mark - Accessors
