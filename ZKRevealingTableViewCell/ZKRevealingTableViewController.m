@@ -134,7 +134,7 @@
 		cell.delegate       = self;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		
-		cell.backView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+		cell.backgroundView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
 	}
 	
 	cell.textLabel.text = [self.objects objectAtIndex:indexPath.row];
