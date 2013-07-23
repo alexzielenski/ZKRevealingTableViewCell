@@ -83,6 +83,8 @@
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
+        
+        self.viewToReveal = self.contentView;
     }
     return self;
 }
@@ -99,6 +101,8 @@
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
+        
+        self.viewToReveal = self.contentView;
     }
     return self;
 }
@@ -137,6 +141,11 @@ static char BOOLRevealing;
     }
 }
 
+- (void)setDirection:(ZKRevealingTableViewCellDirection)direction {
+    _direction = direction;
+    _currentDirection = direction;
+}
+
 - (void)_setRevealing:(BOOL)revealing
 {
 	[self willChangeValueForKey:@"isRevealing"];
@@ -166,13 +175,13 @@ static char BOOLRevealing;
 	CGFloat currentTouchPositionX = currentTouchPoint.x;
 	CGFloat panAmount             = self._initialTouchPositionX - currentTouchPositionX;
 	CGFloat newCenterPosition     = self._initialHorizontalCenter - panAmount;
-	CGFloat centerX               = self.contentView.center.x;
+	CGFloat centerX               = self.viewToReveal.center.x;
 	
 	if (recognizer.state == UIGestureRecognizerStateBegan) {
 		
 		// Set a baseline for the panning
 		self._initialTouchPositionX = currentTouchPositionX;
-		self._initialHorizontalCenter = self.contentView.center.x;
+		self._initialHorizontalCenter = self.viewToReveal.center.x;
 		
 		if ([self.delegate respondsToSelector:@selector(cellDidBeginPan:)])
 			[self.delegate cellDidBeginPan:self];
@@ -206,10 +215,10 @@ static char BOOLRevealing;
 				newCenterPosition = -originalCenter;
 		}
 		
-		CGPoint center = self.contentView.center;
+		CGPoint center = self.viewToReveal.center;
 		center.x = newCenterPosition;
 		
-		self.contentView.layer.position = center;
+		self.viewToReveal.layer.position = center;
 		
 	} else if (recognizer.state == UIGestureRecognizerStateEnded || recognizer.state == UIGestureRecognizerStateCancelled) {
         
@@ -219,7 +228,7 @@ static char BOOLRevealing;
 		// Otherwise, if we are 60 points in, push to the other side
 		// If we are < 60 points in, bounce back
 		
-#define kMinimumVelocity self.contentView.frame.size.width
+#define kMinimumVelocity self.viewToReveal.frame.size.width
 #define kMinimumPan      60.0
 		
 		CGFloat velocityX = velocity.x;
@@ -281,7 +290,7 @@ static char BOOLRevealing;
 - (CGFloat)_bounceMultiplier
 {
     if (self.shouldBounce) {
-        CGFloat offset = ABS(self._originalCenter - self.contentView.center.x);
+        CGFloat offset = ABS(self._originalCenter - self.viewToReveal.center.x);
         return MIN(offset / kMinimumPan, 1.0);
     }
     return 0.f;
@@ -294,7 +303,7 @@ static char BOOLRevealing;
 {
 	CGFloat bounceDistance;
 	
-	if (self.contentView.center.x == self._originalCenter)
+	if (self.viewToReveal.center.x == self._originalCenter)
 		return;
 	
 	switch (direction) {
@@ -313,17 +322,17 @@ static char BOOLRevealing;
 	[UIView animateWithDuration:0.1
 						  delay:0
 						options:UIViewAnimationOptionCurveEaseOut|UIViewAnimationOptionAllowUserInteraction
-					 animations:^{ self.contentView.center = CGPointMake(self._originalCenter, self.contentView.center.y); }
+					 animations:^{ self.viewToReveal.center = CGPointMake(self._originalCenter, self.viewToReveal.center.y); }
 					 completion:^(BOOL f) {
                          
 						 [UIView animateWithDuration:0.1 delay:0
 											 options:UIViewAnimationOptionCurveEaseOut
-										  animations:^{ self.contentView.frame = CGRectOffset(self.contentView.frame, bounceDistance, 0); }
+										  animations:^{ self.viewToReveal.frame = CGRectOffset(self.viewToReveal.frame, bounceDistance, 0); }
 										  completion:^(BOOL f2) {
 											  
                                               [UIView animateWithDuration:0.1 delay:0
                                                                   options:UIViewAnimationOptionCurveEaseIn
-                                                               animations:^{ self.contentView.frame = CGRectOffset(self.contentView.frame, -bounceDistance, 0); }
+                                                               animations:^{ self.viewToReveal.frame = CGRectOffset(self.viewToReveal.frame, -bounceDistance, 0); }
                                                                completion:NULL];
 										  }
 						  ];
@@ -339,7 +348,7 @@ static char BOOLRevealing;
     //			x = - self._originalCenter;
     //			break;
     //		case ZKRevealingTableViewCellDirectionRight:
-    //			x = self.contentView.frame.size.width + self._originalCenter;
+    //			x = self.slideView.frame.size.width + self._originalCenter;
     //			break;
     //		default:
     //			@throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Unhandled gesture direction" userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:direction] forKey:@"direction"]];
@@ -363,7 +372,7 @@ static char BOOLRevealing;
 				x = - self._originalCenter;
 				break;
 			case ZKRevealingTableViewCellDirectionRight:
-				x = self.contentView.frame.size.width + self._originalCenter;
+				x = self.viewToReveal.frame.size.width + self._originalCenter;
 				break;
 			default:
 				@throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"Unhandled gesture direction" userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:direction] forKey:@"direction"]];
@@ -374,7 +383,7 @@ static char BOOLRevealing;
 	[UIView animateWithDuration:0.2
 						  delay:0
 						options:UIViewAnimationOptionCurveEaseOut
-					 animations:^{ self.contentView.center = CGPointMake(x, self.contentView.center.y); }
+					 animations:^{ self.viewToReveal.center = CGPointMake(x, self.viewToReveal.center.y); }
 					 completion:NULL];
 }
 
