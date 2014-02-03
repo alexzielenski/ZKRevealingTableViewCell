@@ -71,6 +71,7 @@
 
 #pragma mark - Lifecycle
 
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -79,7 +80,7 @@
 		self.shouldBounce = YES;
 		self.pixelsToReveal = 0;
 		
-		self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
+		self._panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)];
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
@@ -97,7 +98,7 @@
 		self.shouldBounce = YES;
 		self.pixelsToReveal = 0;
 		
-		self._panGesture = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)] autorelease];
+		self._panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_pan:)];
 		self._panGesture.delegate = self;
 		
 		[self addGestureRecognizer:self._panGesture];
@@ -110,7 +111,6 @@
 - (void)dealloc
 {
 	self._panGesture = nil;
-	[super dealloc];
 }
 
 #pragma mark - Accessors
